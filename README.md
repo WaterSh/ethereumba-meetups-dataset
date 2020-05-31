@@ -58,12 +58,19 @@ The scripts require two files in order to process the data:
 └── meetups_list.csv
 ```
 
+- `meetup_users.csv` is exported from [Meetup](https://meetup.com):
+
+```
+Nombre,Identificador del usuario,Título,Identificación del miembro,Ubicación,Se unió al grupo el,Última visita al grupo el,Último evento presenciado,RSVP totales,Respondió «Sí»,Respondió «Quizás»,Respondió «No»,Meetups a los que ha asistido,Ausencias,Presentación,Foto,Organizador asistente,Lista de correo,URL del perfil del miembro
+Some Name,user 1111,,1111,Buenos Aires,14 de month de 2055,13 de month de 2055,,0,0,0,0,0,0,No,Sí,No,Sí,https://www.meetup.com/es/EthereumBA/members/1111/
+```
+
 - `meetup_dump.csv` is exported from [Meetup](https://meeetup.com):
 
 ```
-Charla,Origen persona,Nombre,OK
-RadicalxChange_+_1_a_1_How_Dai_is_pegged_to_USD,Meetup,Some Name,
-RadicalxChange_+_1_a_1_How_Dai_is_pegged_to_USD,Meetup,Another Name,
+Meetup Name,Nombre,Identificador del usuario,Título,Anfitrión del evento,Inscribirse,Invitados,Respondió el,Se unió al grupo el,URL del perfil del miembro,Attended?
+Ethereumm Buenos Aires (Panel - 1 meetap juntos),XXXXXXXX,XXXXXXXX,Organizador,Sí,Sí,,7 de diciembre de 2018 20:48,25 de julio de 2018,https://www.meetup.com/es/EthereumBA/members/XXXXXXXXX/,
+Ethereumm Buenos Aires (Panel - 1 meetap juntos),XXXXXX,XXXXXXX,,,Sí,,7 de diciembre de 2018 21:04,18 de noviembre de 2018,https://www.meetup.com/es/EthereumBA/members/XXXXXXXX/,
 ```
 
 - `meetups_list.csv` contains all the meetups with the event date, for example:
@@ -85,6 +92,7 @@ pipenv run python main.py
 # TODO
 
 - [ ] `LICENSE.md` & `CONTRIBUTING.md` docs
+- [ ] Try to deduplicate people with multiple meetup user ids
 - [ ] DB model diagram
 - [ ] Proper logging instead of print
 - [ ] Error handling. Atm, if an error occurs, it just crashes.
@@ -100,4 +108,4 @@ pipenv run python main.py
 
 # Bugs
 
-- [ ] Somehow Faker is not being called properly as some duplicates are being generated. As a workaround, `main.py` can be invoked several times until it works.
+No bugs found yet
