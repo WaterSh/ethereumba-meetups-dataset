@@ -1,10 +1,12 @@
 -- =============================================
--- Returns the amount of people responded yes to a RSVP for each meetup
+-- Returns the amount of people responded yes to a RSVP 
+-- and the attendees for each meetup
 -- =============================================
 SELECT
   meetups.name,
   meetups.date,
-  COUNT(*) as subscribed
+  COUNT(*) as subscribed, 
+  unknown_attendees + SUM(CASE WHEN attended THEN 1 ELSE 0 END) as attendees
 FROM
   meetup_attendance
   JOIN meetups ON meetup_attendance.meetup_id = meetups.id

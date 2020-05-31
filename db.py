@@ -8,7 +8,8 @@ def create_schema(db, path="./dataset/ethba-dataset.db"):
     CREATE TABLE IF NOT EXISTS meetups (
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL UNIQUE,
-      date DATE NOT NULL
+      date DATE NOT NULL,
+      unknown_attendees INTEGER
     )
   """
     cursor.execute(statement)
@@ -87,15 +88,15 @@ def insert_fake_mapping(anon_db, person_name, fake_name):
     anon_db.commit()
 
 
-def insert_meetup(cursor, name, date):
+def insert_meetup(cursor, name, date, unknown_attendees):
     statement = """
     INSERT INTO meetups
-      (name, date)
+      (name, date, unknown_attendees)
     VALUES
-      (?, ?)
-    ON CONFLICT (name) DO UPDATE set name = name
+      (?, ?, ?)
+    ON CONFLICT (name) DO UPDATE set name = name, unknown_attendees = unknown_attendees
   """
-    cursor.execute(statement, (name, date))
+    cursor.execute(statement, (name, date, unknown_attendees))
 
 
 def insert_person(cursor, name):

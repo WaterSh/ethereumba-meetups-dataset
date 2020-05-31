@@ -18,7 +18,7 @@ def anonymize_data(anon_db, meetup_dump="./import/meetup_dump.csv"):
         csv_reader = csv.reader(csv_file, delimiter=',')
         next(csv_reader)  # Skip headers
         for row in csv_reader:
-            meetup_name, source, person_name, _ = row
+            meetup_name, source, person_name, _, _ = row
             print("[anonymize_data] Procesing {}".format(person_name))
             fake_name = db.get_anon_mapping(anon_db, person_name)
             if fake_name is None:
