@@ -1,6 +1,6 @@
-# EThBA meetups DataSet
+# EthereumBA Meetups DataSet
 
-This repository contains a public dataset containing information exported from [EthBA Meetup](https://www.meetup.com/ethereum-ba/) alongside with the attendance information. This can be used to gather some statistics (i.e. RSVP vs attendance, churn) in order to improve the comms, quality of the content, etc.
+This repository contains a public dataset containing information exported from [Ethereum Meetup](https://www.meetup.com/ethereum-ba/) alongside with the attendance information. This can be used to gather some statistics (i.e. RSVP vs attendance, churn) in order to improve the comms, quality of the content, etc.
 
 A python script to regenerate the dataset is also provided alongside with a set of already created queries that can be used to analyze the content of the dataset.
 
@@ -91,7 +91,7 @@ pipenv run python main.py
 
 # TODO
 
-- [ ] `LICENSE.md` & `CONTRIBUTING.md` docs
+- [ ] `LICENSE.md` & `CONTRIBUTING.md` and goal docs
 - [ ] Try to deduplicate people with multiple meetup user ids
 - [ ] DB model diagram
 - [ ] Proper logging instead of print

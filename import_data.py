@@ -35,15 +35,15 @@ def import_meetup_data(path, dataset_db, anon_db):
             attended = row[10] == 'x'
             print("[import_meetup_data] Processing row {}".format(row))
             # FIXME: This assumes users were processed first and there are no new ones on this file
-            ethba_user_id = db.get_user_mapping(anon_db, meetup_user_id)
-            print("[import_meetup_data] Ethba user found {}".format(
-                ethba_user_id))
+            ethereumba_user_id = db.get_user_mapping(anon_db, meetup_user_id)
+            print("[import_meetup_data] ethereumba user found {}".format(
+                ethereumba_user_id))
             meetup_id = db.look_for_meetup(cursor, meetup_name)
-            if meetup_id is not None and ethba_user_id is not None:
-                print("[import_meetup_data] Inserting meetup_id: {}, ethba_user_id: {}, rsvp: {}, attended: {}".format(
-                    meetup_id, ethba_user_id, rsvp, attended))
+            if meetup_id is not None and ethereumba_user_id is not None:
+                print("[import_meetup_data] Inserting meetup_id: {}, ethereumba_user_id: {}, rsvp: {}, attended: {}".format(
+                    meetup_id, ethereumba_user_id, rsvp, attended))
                 db.insert_meetup_data(
-                    cursor, meetup_id[0], ethba_user_id[0], rsvp, attended)
+                    cursor, meetup_id[0], ethereumba_user_id[0], rsvp, attended)
             else:
                 # FIXME: this should be handled properly instead of raising an error
                 raise Exception('Error when importing')

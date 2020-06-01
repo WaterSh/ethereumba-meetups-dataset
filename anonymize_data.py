@@ -17,10 +17,10 @@ def import_users(anon_db, users_dump):
         for row in csv_reader:
             meetup_user_id = row[1]
             print("[anonymize_data] Procesing {}".format(meetup_user_id))
-            ethba_meetup_id = db.get_user_mapping(anon_db, meetup_user_id)
-            if ethba_meetup_id is None:
-                new_ethba_meetup_id = random.randint(0, 2**32)
+            ethereumba_meetup_id = db.get_user_mapping(anon_db, meetup_user_id)
+            if ethereumba_meetup_id is None:
+                new_ethereumba_meetup_id = random.randint(0, 2**32)
                 print("[anonymize_data] User not found. Assigning {} to {}".format(
-                    new_ethba_meetup_id, meetup_user_id))
+                    new_ethereumba_meetup_id, meetup_user_id))
                 db.insert_userid_mapping(
-                    anon_db, meetup_user_id, new_ethba_meetup_id)
+                    anon_db, meetup_user_id, new_ethereumba_meetup_id)

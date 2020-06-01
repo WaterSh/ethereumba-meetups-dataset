@@ -13,7 +13,7 @@ anon_db = sqlite3.connect('./dataset/sensitive-data.db')
 create_users_mapping_schema(anon_db)
 
 # Process meetups details
-dataset_db = sqlite3.connect('./dataset/ethba-dataset.db')
+dataset_db = sqlite3.connect('./dataset/ethereumba-dataset.db')
 create_schema(dataset_db)
 
 # TODO: This file will be processed twice but a refactor might be expected when

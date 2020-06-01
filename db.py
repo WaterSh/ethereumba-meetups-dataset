@@ -1,4 +1,4 @@
-def create_schema(db, path="./dataset/ethba-dataset.db"):
+def create_schema(db, path="./dataset/ethereumba-dataset.db"):
     """ 
     Creates the tables that will be part of the dataset
     """
@@ -17,11 +17,11 @@ def create_schema(db, path="./dataset/ethba-dataset.db"):
     statement = """
     CREATE TABLE IF NOT EXISTS meetup_attendance (
       meetup_id INTEGER,
-      ethba_user_id INTEGER,
+      ethereumba_user_id INTEGER,
       rsvp BOOLEAN,
       attended BOOLEAN,
 
-      PRIMARY KEY (meetup_id, ethba_user_id)
+      PRIMARY KEY (meetup_id, ethereumba_user_id)
       FOREIGN KEY(meetup_id) REFERENCES meetups(id)
     )
     """
@@ -33,12 +33,12 @@ def create_schema(db, path="./dataset/ethba-dataset.db"):
 
 def create_users_mapping_schema(db, path="./dataset/sensitive-data.db"):
     """
-    Creates the table to map between meetup userid and ethba userid 
+    Creates the table to map between meetup userid and ethereumba userid 
     """
     cursor = db.cursor()
     statement = """
     CREATE TABLE IF NOT EXISTS users_mapping (
-      ethba_user_id INTEGER PRIMARY KEY, 
+      ethereumba_user_id INTEGER PRIMARY KEY, 
       meetup_user_id TEXT NOT NULL UNIQUE
     ) WITHOUT ROWID
   """
@@ -55,7 +55,7 @@ def get_user_mapping(anon_db, meetup_user_id):
     cursor = anon_db.cursor()
     cursor.execute("""
       SELECT 
-         ethba_user_id
+         ethereumba_user_id
       FROM 
         users_mapping 
       WHERE
@@ -66,17 +66,17 @@ def get_user_mapping(anon_db, meetup_user_id):
     return result
 
 
-def insert_userid_mapping(anon_db, meetup_user_id, ethba_user_id):
+def insert_userid_mapping(anon_db, meetup_user_id, ethereumba_user_id):
     """
     Inserts a new mapping to hide identity
     """
     cursor = anon_db.cursor()
     cursor.execute("""
       INSERT INTO users_mapping
-        (meetup_user_id, ethba_user_id)
+        (meetup_user_id, ethereumba_user_id)
       VALUES
         (?, ?)
-    """, (meetup_user_id, ethba_user_id))
+    """, (meetup_user_id, ethereumba_user_id))
     anon_db.commit()
 
 
@@ -90,15 +90,15 @@ def insert_meetup(cursor, name, date, unknown_attendees):
   """
     cursor.execute(statement, (name, date, unknown_attendees))
 
-def insert_meetup_data(cursor, meetup_id, ethba_user_id, rsvp, attended):
+def insert_meetup_data(cursor, meetup_id, ethereumba_user_id, rsvp, attended):
     statement = """
       INSERT INTO meetup_attendance
-        (meetup_id, ethba_user_id, rsvp, attended)
+        (meetup_id, ethereumba_user_id, rsvp, attended)
       VALUES
         (?, ?, ?, ?)
-      ON CONFLICT (meetup_id, ethba_user_id) DO UPDATE SET attended = excluded.attended, rsvp = excluded.rsvp
+      ON CONFLICT (meetup_id, ethereumba_user_id) DO UPDATE SET attended = excluded.attended, rsvp = excluded.rsvp
     """
-    cursor.execute(statement, (meetup_id, ethba_user_id, rsvp, attended))
+    cursor.execute(statement, (meetup_id, ethereumba_user_id, rsvp, attended))
 
 def look_for_meetup(cursor, name):
     cursor.execute("SELECT id FROM meetups WHERE name = (?)", (name, ))

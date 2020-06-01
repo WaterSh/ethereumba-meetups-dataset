@@ -6,7 +6,7 @@ SELECT
 FROM
   (
     SELECT
-      ethba_user_id,
+      ethereumba_user_id,
       COUNT(*) subscriptions,
       SUM(
         CASE
@@ -20,5 +20,5 @@ FROM
       meetup_id IN (13, 14, 15) -- FIXME: We just have this data as of now
       AND rsvp = 1 -- We only want to count people that RSVP yes
     GROUP BY
-      ethba_user_id
+      ethereumba_user_id
   )

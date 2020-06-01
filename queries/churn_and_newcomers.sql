@@ -12,14 +12,14 @@ SELECT
 FROM
   (
     SELECT
-      m.ethba_user_id,
+      m.ethereumba_user_id,
       ms.name,
       ms.date
     FROM
       meetup_attendance m
       JOIN meetups ms ON m.meetup_id = ms.id
     GROUP BY
-      m.ethba_user_id
+      m.ethereumba_user_id
     HAVING
       ms.date = MAX(ms.date) -- Replace with MIN to get the first time a person RSVP
   )
