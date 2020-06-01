@@ -6,7 +6,6 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-faker = "==4.1.0"
 
 [requires]
 python_version = "3.8"

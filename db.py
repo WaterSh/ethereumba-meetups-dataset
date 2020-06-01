@@ -15,22 +15,14 @@ def create_schema(db, path="./dataset/ethba-dataset.db"):
     cursor.execute(statement)
 
     statement = """
-    CREATE TABLE IF NOT EXISTS people (
-      id INTEGER PRIMARY KEY,
-      name TEXT NOT NULL UNIQUE
-    )
-    """
-    cursor.execute(statement)
-
-    statement = """
     CREATE TABLE IF NOT EXISTS meetup_attendance (
       meetup_id INTEGER,
-      person_id INTEGER,
+      ethba_user_id INTEGER,
+      rsvp BOOLEAN,
       attended BOOLEAN,
 
-      PRIMARY KEY (meetup_id, person_id)
+      PRIMARY KEY (meetup_id, ethba_user_id)
       FOREIGN KEY(meetup_id) REFERENCES meetups(id)
-      FOREIGN KEY(person_id) REFERENCES people(id)
     )
     """
     cursor.execute(statement)
@@ -39,16 +31,16 @@ def create_schema(db, path="./dataset/ethba-dataset.db"):
     db.commit()
 
 
-def create_anon_schema(db, path="./dataset/ethba-dataset.db"):
+def create_users_mapping_schema(db, path="./dataset/sensitive-data.db"):
     """
-    Creates the table to map between real user nicknames and fake ones
+    Creates the table to map between meetup userid and ethba userid 
     """
     cursor = db.cursor()
     statement = """
     CREATE TABLE IF NOT EXISTS users_mapping (
-      real_name TEXT NOT NULL UNIQUE,
-      fake_name TEXT NOT NULL UNIQUE
-    )
+      ethba_user_id INTEGER PRIMARY KEY, 
+      meetup_user_id TEXT NOT NULL UNIQUE
+    ) WITHOUT ROWID
   """
     cursor.execute(statement)
 
@@ -56,35 +48,35 @@ def create_anon_schema(db, path="./dataset/ethba-dataset.db"):
     db.commit()
 
 
-def get_anon_mapping(anon_db, real_name):
+def get_user_mapping(anon_db, meetup_user_id):
     """
     Looks for an anon user in the db 
     """
     cursor = anon_db.cursor()
     cursor.execute("""
       SELECT 
-        fake_name 
+         ethba_user_id
       FROM 
         users_mapping 
       WHERE
-        real_name = (?)
-      """, (real_name, ))
+        meetup_user_id = (?)
+      """, (meetup_user_id, ))
     result = cursor.fetchone()
     cursor.close()
     return result
 
 
-def insert_fake_mapping(anon_db, person_name, fake_name):
+def insert_userid_mapping(anon_db, meetup_user_id, ethba_user_id):
     """
     Inserts a new mapping to hide identity
     """
     cursor = anon_db.cursor()
     cursor.execute("""
       INSERT INTO users_mapping
-        (real_name, fake_name)
+        (meetup_user_id, ethba_user_id)
       VALUES
         (?, ?)
-    """, (person_name, fake_name))
+    """, (meetup_user_id, ethba_user_id))
     anon_db.commit()
 
 
@@ -94,37 +86,19 @@ def insert_meetup(cursor, name, date, unknown_attendees):
       (name, date, unknown_attendees)
     VALUES
       (?, ?, ?)
-    ON CONFLICT (name) DO UPDATE set name = name, unknown_attendees = unknown_attendees
+    ON CONFLICT (name) DO UPDATE SET unknown_attendees = excluded.unknown_attendees
   """
     cursor.execute(statement, (name, date, unknown_attendees))
 
-
-def insert_person(cursor, name):
-    statement = """
-    INSERT INTO people
-      (name)
-    VALUES
-      (?)
-    ON CONFLICT (name) DO NOTHING
-  """
-    cursor.execute(statement, (name, ))
-
-
-def insert_meetup_data(cursor, meetup_id, person_id, attended):
+def insert_meetup_data(cursor, meetup_id, ethba_user_id, rsvp, attended):
     statement = """
       INSERT INTO meetup_attendance
-        (meetup_id, person_id, attended)
+        (meetup_id, ethba_user_id, rsvp, attended)
       VALUES
-        (?, ?, ?)
-      ON CONFLICT (meetup_id, person_id) DO UPDATE set attended = attended
+        (?, ?, ?, ?)
+      ON CONFLICT (meetup_id, ethba_user_id) DO UPDATE SET attended = excluded.attended, rsvp = excluded.rsvp
     """
-    cursor.execute(statement, (meetup_id, person_id, attended))
-
-
-def look_for_person(cursor, name):
-    cursor.execute("SELECT id FROM people WHERE name = (?)", (name, ))
-    return cursor.fetchone()
-
+    cursor.execute(statement, (meetup_id, ethba_user_id, rsvp, attended))
 
 def look_for_meetup(cursor, name):
     cursor.execute("SELECT id FROM meetups WHERE name = (?)", (name, ))

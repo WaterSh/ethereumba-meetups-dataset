@@ -5,7 +5,6 @@
 --
 -- If `MAX` is replaced with `MIN` the fist time a person joined the meetup can be fetched.
 -- =============================================
-
 SELECT
   name,
   date,
@@ -13,15 +12,14 @@ SELECT
 FROM
   (
     SELECT
-      m.person_id,
+      m.ethba_user_id,
       ms.name,
       ms.date
     FROM
       meetup_attendance m
       JOIN meetups ms ON m.meetup_id = ms.id
-      JOIN people p on m.person_id = p.id
     GROUP BY
-      m.person_id
+      m.ethba_user_id
     HAVING
       ms.date = MAX(ms.date) -- Replace with MIN to get the first time a person RSVP
   )

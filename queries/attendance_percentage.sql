@@ -1,12 +1,12 @@
 -- =============================================
--- Returns users AVG attendance
+-- Returns users AVG attendance 
 -- =============================================
 SELECT
   AVG(percentage)
 FROM
   (
     SELECT
-      person_id,
+      ethba_user_id,
       COUNT(*) subscriptions,
       SUM(
         CASE
@@ -18,6 +18,7 @@ FROM
       meetup_attendance
     WHERE
       meetup_id IN (13, 14, 15) -- FIXME: We just have this data as of now
+      AND rsvp = 1 -- We only want to count people that RSVP yes
     GROUP BY
-      person_id
+      ethba_user_id
   )
