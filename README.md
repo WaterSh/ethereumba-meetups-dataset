@@ -108,4 +108,4 @@ pipenv run python main.py
 
 # Bugs
 
-No bugs found yet
+See the [github issues list](https://github.com/AlanVerbner/ethereum-meetups-dataset/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
