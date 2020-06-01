@@ -34,7 +34,7 @@ def import_meetup_data(path, dataset_db, anon_db):
             rsvp = row[7] != '' # TODO: We can parse the date here
             attended = row[10] == 'x'
             print("[import_meetup_data] Processing row {}".format(row))
-            # FIXME: This assumes users were processed first and there are no new ones on this file
+            # TODO: This assumes users were processed first and there are no new ones on this file but we should parse them
             ethereumba_user_id = db.get_user_mapping(anon_db, meetup_user_id)
             print("[import_meetup_data] ethereumba user found {}".format(
                 ethereumba_user_id))
@@ -44,8 +44,5 @@ def import_meetup_data(path, dataset_db, anon_db):
                     meetup_id, ethereumba_user_id, rsvp, attended))
                 db.insert_meetup_data(
                     cursor, meetup_id[0], ethereumba_user_id[0], rsvp, attended)
-            else:
-                # FIXME: this should be handled properly instead of raising an error
-                raise Exception('Error when importing')
     cursor.close()
     dataset_db.commit()
