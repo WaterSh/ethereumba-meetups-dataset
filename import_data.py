@@ -1,5 +1,6 @@
 import sqlite3
 import csv
+import dateparser
 
 import db
 
@@ -31,7 +32,7 @@ def import_meetup_data(path, dataset_db, anon_db):
         for row in csv_reader:
             meetup_name = row[0]
             meetup_user_id = row[2]
-            rsvp = row[7] != '' # TODO: We can parse the date here
+            rsvp_date = dateparser.parse(row[7]) if row[7] != '' else None
             attended = row[10] == 'x'
             print("[import_meetup_data] Processing row {}".format(row))
             # TODO: This assumes users were processed first and there are no new ones on this file but we should parse them
@@ -41,8 +42,8 @@ def import_meetup_data(path, dataset_db, anon_db):
             meetup_id = db.look_for_meetup(cursor, meetup_name)
             if meetup_id is not None and ethereumba_user_id is not None:
                 print("[import_meetup_data] Inserting meetup_id: {}, ethereumba_user_id: {}, rsvp: {}, attended: {}".format(
-                    meetup_id, ethereumba_user_id, rsvp, attended))
+                    meetup_id, ethereumba_user_id, rsvp_date, attended))
                 db.insert_meetup_data(
-                    cursor, meetup_id[0], ethereumba_user_id[0], rsvp, attended)
+                    cursor, meetup_id[0], ethereumba_user_id[0], rsvp_date, attended)
     cursor.close()
     dataset_db.commit()

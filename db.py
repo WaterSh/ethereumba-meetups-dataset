@@ -18,7 +18,7 @@ def create_schema(db, path="./dataset/ethereumba-dataset.db"):
     CREATE TABLE IF NOT EXISTS meetup_attendance (
       meetup_id INTEGER,
       ethereumba_user_id INTEGER,
-      rsvp BOOLEAN,
+      rsvp_date DATE,
       attended BOOLEAN,
 
       PRIMARY KEY (meetup_id, ethereumba_user_id)
@@ -90,15 +90,15 @@ def insert_meetup(cursor, name, date, unknown_attendees):
   """
     cursor.execute(statement, (name, date, unknown_attendees))
 
-def insert_meetup_data(cursor, meetup_id, ethereumba_user_id, rsvp, attended):
+def insert_meetup_data(cursor, meetup_id, ethereumba_user_id, rsvp_date, attended):
     statement = """
       INSERT INTO meetup_attendance
-        (meetup_id, ethereumba_user_id, rsvp, attended)
+        (meetup_id, ethereumba_user_id, rsvp_date, attended)
       VALUES
         (?, ?, ?, ?)
-      ON CONFLICT (meetup_id, ethereumba_user_id) DO UPDATE SET attended = excluded.attended, rsvp = excluded.rsvp
+      ON CONFLICT (meetup_id, ethereumba_user_id) DO UPDATE SET attended = excluded.attended, rsvp_date = excluded.rsvp_date
     """
-    cursor.execute(statement, (meetup_id, ethereumba_user_id, rsvp, attended))
+    cursor.execute(statement, (meetup_id, ethereumba_user_id, rsvp_date, attended))
 
 def look_for_meetup(cursor, name):
     cursor.execute("SELECT id FROM meetups WHERE name = (?)", (name, ))
