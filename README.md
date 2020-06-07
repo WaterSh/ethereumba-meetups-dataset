@@ -14,19 +14,77 @@ The main goal is to completely respect users privacy. In order to do so, the dat
 
 <!-- toc -->
 
+  * [Goal](#goal)
+  * [Data Sources](#data-sources)
+  * [Results](#results)
+  * [Queries](#queries)
+    + [List](#list)
+    + [Status Description](#status-description)
 - [Current Data Set](#current-data-set)
-- [Generating the dataset locally](#generating-the-dataset-locally)
-  * [Requirements](#requirements)
-  * [Setup](#setup)
-  * [Running the import script](#running-the-import-script)
-    + [Import files structure](#import-files-structure)
-    + [Execution](#execution)
-- [TODO](#todo)
+  * [Generating the dataset locally](#generating-the-dataset-locally)
+    + [Requirements](#requirements)
+    + [Setup](#setup)
+    + [Running the import script](#running-the-import-script)
+      - [Import files structure](#import-files-structure)
+      - [Execution](#execution)
+    + [TODO](#todo)
 - [Bugs](#bugs)
 
 <!-- tocstop -->
 
-## Current Data Set
+## Goal
+
+The following document proposes a set of queries we can ran against all the information EthBA has collected over the time in order to:
+
+- Analyze subscriptions and assistance information to improve EthBA organization, the talks topics and content creation in order to bring more people to our meetups.
+- Open source the anonymized datasets to promote EthBA good practices and openness. 
+
+## Data Sources
+
+The following data sources will be used to gather information about the meetups:
+
+- Meetup.com RSVP dumps.
+- Attendance lists completed by EthBA team.
+- Claimed POAPs.
+
+## Results
+
+- The dataset should be published and shared with the community.
+- The dataset should be able to be easily rebuilt or extended if new data is available.
+- All the queries must be shared in order to let other people to run or improve them.
+- The results should be presented as charts.
+
+## Queries
+
+### List
+
+- **RSVP vs attended by event** `[STARTED]`
+  - Goal: to understand if people actually comes to the events. Strange cases can also be analyzed, for example, an big difference between RSVP and attendance could be due to a heavy rain or a sudden change in the agenda.
+  - RSVP is already done
+  - Data about people attending is not complete and needs manual processing.
+- **RSVP by topic** `[PROPOSAL]`
+  - Goal: to understand if there are topics that are more attractive to people.
+  - Topics will need to be manually assigned to each event (error prone)
+- **Amount of people that stopped responding RSVP by event** `[DONE]`
+  - Goal: This will help to understand the churn rate and to analyze if there are some event that are not attractive to some people. 
+- **Amount of people that started responding RSVP by event** `[DONE]`
+  - Goal: This might give an idea about which events were more interesting for the community. It's important to note that this will also be affected by comms difussion and the meetup being more mature.
+- **Average assistance percentage** `[DONE]`
+  - Goal: Determine what's the overall assistance rate to be able analyze possible improvements (for example, implementing something like kickback).
+- **Amount of people that claimed POAP by event** `[PROPOSAL]`
+  - Goal: Will give an idea of the amount of people that actually came to an event (at least for a couple of mins)
+  - We will need to look for POAP info (that is incomplete as it started after some meetups).
+  - Some people might have just stayed to claim the POAP and left.
+  - Not sure how will this work as the meetups are being done online now. 
+
+### Status Description
+
+- `[PROPOSAL]`: Still to be decided if it's worthy to do it or not.
+- `[TODO]`: Already defined but not work done yet. 
+- `[STARTED]`: Some work has been done but not finished yet.
+- `[DONE]`: Finisheda already.
+
+# Current Data Set
 
 An updated version of the dataset can be found and downloaded [here](./dataset/ethba-dataset.db). You can use any SQL browser tool to run your queries. Some some sample queries can be found [here](./queries).
 
