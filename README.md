@@ -177,7 +177,7 @@ pipenv run python main.py
 
 ### TODO
 
-- [ ] `LICENSE.md`, `CONTRIBUTING.md`, `CHANGELOG.md` docs + Roadmap section
+- [ ] `CHANGELOG.md`
 - [ ] Try to deduplicate people with multiple meetup user ids
 - [ ] DB model diagram
 - [ ] Proper logging instead of print
