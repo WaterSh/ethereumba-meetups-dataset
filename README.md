@@ -4,31 +4,32 @@ This repository contains a public dataset containing information exported from [
 
 A python script to regenerate the dataset is also provided alongside with a set of already created queries that can be used to analyze the content of the dataset.
 
- _isclaimer: This is a very first version version with a lot of open `TODOs` and bugs._
+_isclaimer: This is a very first version version with a lot of open `TODOs` and bugs._
 
 ## Note about privacy
 
-The main goal is to completely respect users privacy. In order to do so, the dataset that can be found in this repository is de-anonymized before being pushed. To do so, we use a random user id generator (without any link to the original data, no PII hash calculation at all). 
+The main goal is to completely respect users privacy. In order to do so, the dataset that can be found in this repository is de-anonymized before being pushed. To do so, we use a random user id generator (without any link to the original data, no PII hash calculation at all).
 
 ## TOC
 
 <!-- toc -->
 
-  * [Goal](#goal)
-  * [Data Sources](#data-sources)
-  * [Results](#results)
-  * [Queries](#queries)
-    + [List](#list)
-    + [Status Description](#status-description)
-- [Current Data Set](#current-data-set)
-  * [Generating the dataset locally](#generating-the-dataset-locally)
-    + [Requirements](#requirements)
-    + [Setup](#setup)
-    + [Running the import script](#running-the-import-script)
+- [Goal](#goal)
+- [Data Sources](#data-sources)
+- [Results](#results)
+- [Queries](#queries)
+  - [List](#list)
+  - [Status Description](#status-description)
+
+* [Current Data Set](#current-data-set)
+  - [Generating the dataset locally](#generating-the-dataset-locally)
+    - [Requirements](#requirements)
+    - [Setup](#setup)
+    - [Running the import script](#running-the-import-script)
       - [Import files structure](#import-files-structure)
       - [Execution](#execution)
-    + [TODO](#todo)
-- [Bugs](#bugs)
+    - [TODO](#todo)
+* [Bugs](#bugs)
 
 <!-- tocstop -->
 
@@ -37,7 +38,7 @@ The main goal is to completely respect users privacy. In order to do so, the dat
 The following document proposes a set of queries we can ran against all the information EthBA has collected over the time in order to:
 
 - Analyze subscriptions and assistance information to improve EthBA organization, the talks topics and content creation in order to bring more people to our meetups.
-- Open source the anonymized datasets to promote EthBA good practices and openness. 
+- Open source the anonymized datasets to promote EthBA good practices and openness.
 
 ## Data Sources
 
@@ -66,7 +67,7 @@ The following data sources will be used to gather information about the meetups:
   - Goal: to understand if there are topics that are more attractive to people.
   - Topics will need to be manually assigned to each event (error prone)
 - **Amount of people that stopped responding RSVP by event** `[DONE]`
-  - Goal: This will help to understand the churn rate and to analyze if there are some event that are not attractive to some people. 
+  - Goal: This will help to understand the churn rate and to analyze if there are some event that are not attractive to some people.
 - **Amount of people that started responding RSVP by event** `[DONE]`
   - Goal: This might give an idea about which events were more interesting for the community. It's important to note that this will also be affected by comms difussion and the meetup being more mature.
 - **Average assistance percentage** `[DONE]`
@@ -75,12 +76,12 @@ The following data sources will be used to gather information about the meetups:
   - Goal: Will give an idea of the amount of people that actually came to an event (at least for a couple of mins)
   - We will need to look for POAP info (that is incomplete as it started after some meetups).
   - Some people might have just stayed to claim the POAP and left.
-  - Not sure how will this work as the meetups are being done online now. 
+  - Not sure how will this work as the meetups are being done online now.
 
 ### Status Description
 
 - `[PROPOSAL]`: Still to be decided if it's worthy to do it or not.
-- `[TODO]`: Already defined but not work done yet. 
+- `[TODO]`: Already defined but not work done yet.
 - `[STARTED]`: Some work has been done but not finished yet.
 - `[DONE]`: Finisheda already.
 
@@ -89,8 +90,8 @@ The following data sources will be used to gather information about the meetups:
 An updated version of the dataset can be found and downloaded [here](./dataset/ethba-dataset.db). You can use any SQL browser tool to run your queries. Some some sample queries can be found [here](./queries).
 
 | Name                                                                      | Date       |
-|---------------------------------------------------------------------------|------------|
-| Ethereum  Buenos Aires (Panel - 1 meetup juntos)                          | 2018-12-13 |
+| ------------------------------------------------------------------------- | ---------- |
+| Ethereum Buenos Aires (Panel - 1 meetup juntos)                           | 2018-12-13 |
 | Seguridad en Smart Contracts                                              | 2019-01-31 |
 | Buidler Marmo SDK Zerion                                                  | 2019-02-28 |
 | RadicalxChange 1 a 1 How Dai is pegged to USD                             | 2019-03-29 |
@@ -109,7 +110,7 @@ An updated version of the dataset can be found and downloaded [here](./dataset/e
 | Black Thursday MakerDAO Backstop Syndicate                                | 2020-03-26 |
 | MakerDAO's Black Thursday Survival + Decentraland's Metaverse Release     | 2020-04-30 |
 | Ethereum BA Privacidad con Wibson Wrapped Tokens Pagos DeFi con StablePay | 2020-05-28 |
-
+| Uniswap & Balancer Ethereum Chicago & BA meetup                           | 2020-06-25 |
 
 ## Generating the dataset locally
 
