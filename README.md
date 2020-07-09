@@ -70,6 +70,9 @@ The following data sources will be used to gather information about the meetups:
   - Goal: This will help to understand the churn rate and to analyze if there are some event that are not attractive to some people.
 - **Amount of people that started responding RSVP by event** `[DONE]`
   - Goal: This might give an idea about which events were more interesting for the community. It's important to note that this will also be affected by comms difussion and the meetup being more mature.
+- **RSVP per date** `[DONE]`
+  - Goal: Understanding when people answers yes to the event RSVP might give us an idea about when is better to increase comms work.
+  - We don't have publish date to get a better understanding but still is a good approach.
 - **Average assistance percentage** `[DONE]`
   - Goal: Determine what's the overall assistance rate to be able analyze possible improvements (for example, implementing something like kickback).
 - **Amount of people that claimed POAP by event** `[PROPOSAL]`
