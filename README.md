@@ -182,9 +182,6 @@ pipenv run python main.py
 - [ ] DB model diagram
 - [ ] Proper logging instead of print
 - [ ] Error handling. Atm, if an error occurs, it just crashes.
-- [ ] Remove duplicated code
-  - csv file iteration
-  - cursor creation and commiting data
 - [ ] Tests
 - [ ] cli to execute specific actions:
   - destroy dataset
